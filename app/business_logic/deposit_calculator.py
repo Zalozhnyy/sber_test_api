@@ -33,7 +33,8 @@ class DepositCalculator:
     def __init__(self, dep: Deposit):
         self._deposit: Deposit = dep
 
-    def _increment_month(self, _date: date) -> date:
+    @staticmethod
+    def _increment_month(_date: date) -> date:
 
         if _date.month == 12:  # december
             return date(_date.year + 1, 1, 31)
@@ -41,8 +42,9 @@ class DepositCalculator:
         last_day = monthrange(_date.year, _date.month + 1)[1]
         return date(_date.year, _date.month + 1, last_day)
 
-    def _calc_deposit_percents(self, val: float) -> float:
-        return val + (val * self._deposit.rate / 12 / 100)
+    @staticmethod
+    def _calc_deposit_percents(val: float, rate: float) -> float:
+        return val + (val * rate / 12 / 100)
 
     def calculate(self) -> DepositCalculatorResult:
         values = [self._deposit.amount]
@@ -50,15 +52,7 @@ class DepositCalculator:
 
         for i in range(self._deposit.periods):
             dates.append(self._increment_month(dates[-1]))
-            values.append(self._calc_deposit_percents(values[-1]))
+            values.append(self._calc_deposit_percents(values[-1], self._deposit.rate))
 
         return DepositCalculatorResult(dates[1:], values[1:])
-
-
-d = Deposit(**{
-    'date': "1.1.2021",
-    'periods': 24,
-    'amount': 100,
-    'rate': 1
-})
 
