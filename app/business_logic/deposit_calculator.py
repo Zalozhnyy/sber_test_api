@@ -54,7 +54,7 @@ class DepositCalculator:
         dates = [self._deposit.date]
 
         for i in range(self._deposit.periods):
-            dates.append(self._increment_month(dates[-1], len(dates) > 1))
+            dates.append(self._increment_month(dates[-1], is_first=len(dates) == 1))
             values.append(self._calc_deposit_percents(values[-1], self._deposit.rate))
 
         return DepositCalculatorResult(dates[1:], values[1:])
