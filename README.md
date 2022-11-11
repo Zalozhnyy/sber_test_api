@@ -10,6 +10,16 @@
 ### Запуск
     docker run -p 8080:8080 sber_tz
 
+### Проверка
+    postman http://0.0.0.0:8080/
+Указываем body json
+    `{
+    "date": "31.1.2021",
+    "periods": 4,
+    "amount": 10000,
+    "rate": 6
+    }`
+
 Тесты
 ========================
     pytest --cov=app app/tests/
