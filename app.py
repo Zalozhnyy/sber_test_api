@@ -14,4 +14,4 @@ app = web.Application()
 
 if __name__ == "__main__":
     setup_app(app)
-    web.run_app(app)
+    web.run_app(app, port=8080)
