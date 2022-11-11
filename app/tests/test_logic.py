@@ -11,6 +11,7 @@ def test_first_month():
     incremented_date = DepositCalculator._increment_month(_date, is_first=True)
     assert _date == incremented_date
 
+
 def test_month_increment():
     _date = date(2000, 1, 1)
 
@@ -32,7 +33,6 @@ def test_year_increment():
 
 
 def test_deposit_benefit():
-
     value = DepositCalculator._calc_deposit_percents(100, 12)
 
     assert value == 101.
@@ -44,7 +44,7 @@ def test_deposit_calculation(base_data):
     res = DepositCalculator(d).calculate()
 
     assert res.values[0] == d.amount + (d.amount * d.rate / 100 / 12)
-    assert res.dates[0] == date(d.date.year, 12, 31)
+    assert res.dates[0] == date(d.date.year, 11, 30)
 
 
 def test_get_results_as_json():
@@ -54,7 +54,5 @@ def test_get_results_as_json():
     r = DepositCalculatorResult(dates, values).as_json()
 
     for key, ori_dat, ori_val in zip(r, dates, values):
-
         assert key == ori_dat.strftime("%d.%m.%Y")
         assert r[key] == ori_val
-
