@@ -1,6 +1,6 @@
 import json
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, validator, ValidationError
 from datetime import date, datetime, timedelta
 
 import pathlib
@@ -8,18 +8,6 @@ import pathlib
 BASE_DIR = pathlib.Path(__file__).parent.parent
 with open(BASE_DIR / 'constraints.json', 'r') as f:
     constraints = json.load(f)
-
-
-class DateInFuture(Exception): pass
-
-
-class PeriodsValidationError(Exception): pass
-
-
-class AmountValidationError(Exception): pass
-
-
-class RateValidationError(Exception): pass
 
 
 class Deposit(BaseModel):
@@ -37,27 +25,26 @@ class Deposit(BaseModel):
     @validator('date')
     def validate_date_lte_now(cls, v: date):
         if date.today() < v:
-            raise DateInFuture()
+            raise ValueError("date in future")
         return v
 
     @validator('periods')
     def validate_periods(cls, v):
         l, r = constraints['periods']['min'], constraints['periods']['max']
         if v < l or v > r:
-            raise PeriodsValidationError(f'periods not in [{l}, {r}]')
+            raise ValueError(f'periods not in [{l}, {r}]')
         return v
 
     @validator('amount')
     def validate_amounts(cls, v):
         l, r = constraints['amount']['min'], constraints['amount']['max']
         if v < l or v > r:
-            raise AmountValidationError(f'amount not in [{l}, {r}]')
+            raise ValueError(f'amount not in [{l}, {r}]')
         return v
 
     @validator('rate')
     def validate_rate(cls, v):
         l, r = constraints['rate']['min'], constraints['rate']['max']
         if v < l or v > r:
-            raise RateValidationError(f'rate not in [{l}, {r}]')
+            raise ValueError(f'rate not in [{l}, {r}]')
         return v
-
