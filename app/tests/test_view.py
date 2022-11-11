@@ -1,10 +1,6 @@
-import json
-
 from aiohttp import web
-from aiohttp.test_utils import TestClient, TestServer
 import pytest
 
-from app.views import calc_deposit
 from main import setup_routes
 
 
