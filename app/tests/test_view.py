@@ -1,7 +1,7 @@
 from aiohttp import web
 import pytest
 
-from main import setup_routes
+from start_app import setup_routes
 
 
 async def hello(request):
