@@ -6,6 +6,11 @@ from app.business_logic.deposit_calculator import DepositCalculator, DepositCalc
 from .test_model import base_data
 
 
+def test_first_month():
+    _date = date(2000, 1, 31)
+    incremented_date = DepositCalculator._increment_month(_date, is_first=True)
+    assert _date == incremented_date
+
 def test_month_increment():
     _date = date(2000, 1, 1)
 
