@@ -1,0 +1,29 @@
+{
+    "title": "Deposit",
+    "type": "object",
+    "properties": {
+        "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date"
+        },
+        "periods": {
+            "title": "Periods",
+            "type": "integer"
+        },
+        "amount": {
+            "title": "Amount",
+            "type": "integer"
+        },
+        "rate": {
+            "title": "Rate",
+            "type": "number"
+        }
+    },
+    "required": [
+        "date",
+        "periods",
+        "amount",
+        "rate"
+    ]
+}
