@@ -1,6 +1,5 @@
 import pytest
 from datetime import date
-import json
 
 from app.model import Deposit
 from app.business_logic.deposit_calculator import DepositCalculator, DepositCalculatorResult
@@ -49,9 +48,8 @@ def test_get_results_as_json():
 
     r = DepositCalculatorResult(dates, values).as_json()
 
-    loaded = json.loads(r)
-    for key, ori_dat, ori_val in zip(loaded, dates, values):
+    for key, ori_dat, ori_val in zip(r, dates, values):
 
         assert key == ori_dat.strftime("%d.%m.%Y")
-        assert loaded[key] == ori_val
+        assert r[key] == ori_val
 

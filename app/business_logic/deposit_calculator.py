@@ -11,12 +11,12 @@ class DepositCalculatorResult:
     dates: list[date]
     values: list[float]
 
-    def as_json(self) -> str:
+    def as_json(self) -> dict:
         res = dict()
         for _date, val in zip(self.dates, self.values):
             res[_date.strftime("%d.%m.%Y")] = round(val, 2)
 
-        return json.dumps(res, indent=4)
+        return res
 
     def as_json_impl2(self) -> str:  # на мой взгляд более правильный Response json
         return json.dumps(
