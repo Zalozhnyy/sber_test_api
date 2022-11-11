@@ -1,5 +1,3 @@
-import json
-
 from aiohttp import web
 from aiohttp.web import json_response
 from pydantic import ValidationError
@@ -16,14 +14,11 @@ async def calc_deposit(request: web.Request) -> web.Response:
 
     try:
         deposit = Deposit(**body)
-    except ValidationError as e:
-        return json_response({"error": e.errors()}, status=400)
-    except Exception as e:
-        return json_response({"error": e.__str__()}, status=400)
-
-    try:
         return json_response(
             DepositCalculator(deposit).calculate().as_json()
         )
+
+    except ValidationError as e:
+        return json_response({"error": e.errors()}, status=400)
     except Exception as e:
         return json_response({"error": e.__str__()}, status=400)
