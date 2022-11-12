@@ -1,0 +1,62 @@
+tags:
+- Example
+summary: Calculate deposit
+produces:
+- application/json
+parameters:
+- in: body
+  name: body
+  description: Input data for deposit calculation
+  required: true
+  schema:
+    type: object
+    properties:
+      data:
+        type: string
+        format: date
+        example: 31.01.2020
+        description: format DD.MM.YYYY
+      periods:
+        type: integer
+        example: 12
+        description: duration of the deposit
+      amount:
+        type: integer
+        example: 10000
+        description: amount of money
+      rate:
+        type: number
+        example: 1.8
+        description: interest rate
+
+responses:
+  "200":
+    description: successful operation
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            date:
+              type: number
+              name: 123
+              example: 100546
+              description: key format DD.MM.YYYY
+  "400":
+    description: some kind of error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: [
+    {
+        "loc": [
+            "date"
+        ],
+        "msg": "invalid date format",
+        "type": "value_error.date"
+    }
+  ]

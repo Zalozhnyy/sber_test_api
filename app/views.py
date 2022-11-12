@@ -1,11 +1,13 @@
 from aiohttp import web
 from aiohttp.web import json_response
+from aiohttp_swagger import *
 from pydantic import ValidationError
 
 from app.model import Deposit
 from app.business_logic.deposit_calculator import DepositCalculator
 
 
+@swagger_path("calc_deposit_swagger.yaml")
 async def calc_deposit(request: web.Request) -> web.Response:
     if request.content_type != "application/json":
         return json_response({'error': f'content_type {request.content_type} not supported'}, status=400)

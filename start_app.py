@@ -1,5 +1,6 @@
 from aiohttp import web
 from app.routes import setup_routes as app_setup_routes
+from aiohttp_swagger import setup_swagger
 
 
 def setup_routes(application: web.Application):
@@ -14,4 +15,5 @@ app = web.Application()
 
 if __name__ == "__main__":
     setup_app(app)
+    setup_swagger(app, swagger_url="/api/doc", ui_version=3)
     web.run_app(app, port=8080)
