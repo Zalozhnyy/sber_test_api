@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      dockerfile: Dockerfile_prod
+      context: .
+    command: gunicorn start_app:start_app --bind 0.0.0.0:8080 --worker-class aiohttp.GunicornWebWorker --workers 12
+
+    ports:
+      - 8080:8080
+    networks:
+      - custom
+
+
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - 8889:80
+    depends_on:
+      - web
+    networks:
+      - custom
+
+
+networks:
+  custom:
+    driver: bridge

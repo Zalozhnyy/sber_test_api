@@ -11,9 +11,15 @@ def setup_app(application: web.Application):
     setup_routes(application)
 
 
-app = web.Application()
+async def start_app():
+    app = web.Application()
+    setup_app(app)
+    setup_swagger(app, swagger_url="/api/doc", ui_version=3)
+    return app
+
 
 if __name__ == "__main__":
+    app = web.Application()
     setup_app(app)
     setup_swagger(app, swagger_url="/api/doc", ui_version=3)
     web.run_app(app, port=8080)
