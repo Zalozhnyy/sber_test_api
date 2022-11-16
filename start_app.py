@@ -19,7 +19,4 @@ async def start_app():
 
 
 if __name__ == "__main__":
-    app = web.Application()
-    setup_app(app)
-    setup_swagger(app, swagger_url="/api/doc", ui_version=3)
-    web.run_app(app, port=8080)
+    web.run_app(start_app(), port=8080)

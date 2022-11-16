@@ -4,5 +4,5 @@ from .views import calc_deposit
 
 
 def setup_routes(app: web.Application) -> None:
-   app.router.add_route("GET", "/", calc_deposit)
+   app.router.add_post("/", calc_deposit)
 
