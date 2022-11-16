@@ -1,9 +1,18 @@
-import pytest
 from datetime import date
+import pytest
 
 from app.model import Deposit
 from app.business_logic.deposit_calculator import DepositCalculator, DepositCalculatorResult
-from .test_model import base_data
+
+
+@pytest.fixture
+def base_data() -> dict:
+    return {
+        'date': "10.11.2021",
+        'periods': 3,
+        'amount': 40000,
+        'rate': 5
+    }
 
 
 def test_first_month():

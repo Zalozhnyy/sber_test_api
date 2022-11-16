@@ -73,5 +73,5 @@ async def test_wrong_period(cli, example_body):
     example_body['periods'] = 2222222
     resp = await cli.get('/', json=example_body)
 
-    data = await resp.json()
+    _ = await resp.json()
     assert resp.status == 400

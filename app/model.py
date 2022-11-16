@@ -1,7 +1,7 @@
 import json
 
-from pydantic import BaseModel, validator, ValidationError
-from datetime import date, datetime, timedelta
+from pydantic import BaseModel, validator
+from datetime import date
 
 import pathlib
 

@@ -1,7 +1,7 @@
 from app.model import Deposit
 from dataclasses import dataclass
 
-from datetime import date, timedelta
+from datetime import date
 from calendar import monthrange
 import json
 
@@ -18,13 +18,14 @@ class DepositCalculatorResult:
 
         return res
 
-    def as_json_impl2(self) -> str:  # на мой взгляд более правильный Response json
+    def as_json_impl2(self) -> str:
+        # на мой взгляд более правильный Response json
         return json.dumps(
             {
                 "dates": [_date.strftime("%d.%m.%Y") for _date in self.dates],
                 "values": [round(val, 2) for val in self.values],
-            }
-            , indent=4
+            },
+            indent=4
         )
 
 
