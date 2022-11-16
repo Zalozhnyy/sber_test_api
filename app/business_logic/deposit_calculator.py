@@ -25,12 +25,11 @@ class DepositCalculatorResult:
                 "dates": [_date.strftime("%d.%m.%Y") for _date in self.dates],
                 "values": [round(val, 2) for val in self.values],
             },
-            indent=4
+            indent=4,
         )
 
 
 class DepositCalculator:
-
     def __init__(self, dep: Deposit):
         self._deposit: Deposit = dep
 

@@ -5,7 +5,7 @@ from start_app import setup_routes
 
 
 async def hello(request):
-    return web.Response(text='Hello, world')
+    return web.Response(text="Hello, world")
 
 
 @pytest.fixture
@@ -17,17 +17,12 @@ def cli(event_loop, aiohttp_client):
 
 @pytest.fixture
 def example_body():
-    return {
-        'date': "31.01.2021",
-        'periods': 7,
-        'amount': 10000,
-        'rate': 6
-    }
+    return {"date": "31.01.2021", "periods": 7, "amount": 10000, "rate": 6}
 
 
 @pytest.mark.asyncio
 async def test_get_results(cli, example_body):
-    resp = await cli.get('/', json=example_body)
+    resp = await cli.get("/", json=example_body)
 
     data = await resp.json()
     assert resp.status == 200
@@ -48,9 +43,9 @@ async def test_get_results(cli, example_body):
 
 @pytest.mark.asyncio
 async def test_two_month_with_31(cli, example_body):
-    example_body['periods'] = 2
+    example_body["periods"] = 2
 
-    resp = await cli.get('/', json=example_body)
+    resp = await cli.get("/", json=example_body)
 
     data = await resp.json()
     assert resp.status == 200
@@ -60,18 +55,18 @@ async def test_two_month_with_31(cli, example_body):
 
 @pytest.mark.asyncio
 async def test_wrong_date_format(cli, example_body):
-    example_body['date'] = '2000.1.1'
-    resp = await cli.get('/', json=example_body)
+    example_body["date"] = "2000.1.1"
+    resp = await cli.get("/", json=example_body)
 
     data = await resp.json()
     assert resp.status == 400
-    assert data['error'][0]['msg'] == 'invalid date format'
+    assert data["error"][0]["msg"] == "invalid date format"
 
 
 @pytest.mark.asyncio
 async def test_wrong_period(cli, example_body):
-    example_body['periods'] = 2222222
-    resp = await cli.get('/', json=example_body)
+    example_body["periods"] = 2222222
+    resp = await cli.get("/", json=example_body)
 
     _ = await resp.json()
     assert resp.status == 400

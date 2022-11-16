@@ -6,12 +6,7 @@ from pydantic import ValidationError
 
 @pytest.fixture
 def base_data() -> dict:
-    return {
-        'date': "10.11.2021",
-        'periods': 3,
-        'amount': 40000,
-        'rate': 5
-    }
+    return {"date": "10.11.2021", "periods": 3, "amount": 40000, "rate": 5}
 
 
 def test_correct_deposit(base_data):
@@ -20,25 +15,25 @@ def test_correct_deposit(base_data):
 
 def test_raise_date_in_future(base_data):
     with pytest.raises(ValidationError):
-        base_data['date'] = "10.11.2028"
+        base_data["date"] = "10.11.2028"
         Deposit(**base_data)
 
 
 def test_raise_amount(base_data):
     with pytest.raises(ValidationError):
-        base_data['amount'] = 9999999
+        base_data["amount"] = 9999999
         Deposit(**base_data)
 
 
 def test_raise_periods(base_data):
     with pytest.raises(ValidationError):
-        base_data['periods'] = 0
+        base_data["periods"] = 0
         Deposit(**base_data)
 
 
 def test_raise_rate(base_data):
     with pytest.raises(ValidationError):
-        base_data['rate'] = 9999
+        base_data["rate"] = 9999
         Deposit(**base_data)
 
 
