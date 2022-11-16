@@ -22,7 +22,7 @@ def example_body():
 
 @pytest.mark.asyncio
 async def test_get_results(cli, example_body):
-    resp = await cli.get("/", json=example_body)
+    resp = await cli.post("/", json=example_body)
 
     data = await resp.json()
     assert resp.status == 200
@@ -45,7 +45,7 @@ async def test_get_results(cli, example_body):
 async def test_two_month_with_31(cli, example_body):
     example_body["periods"] = 2
 
-    resp = await cli.get("/", json=example_body)
+    resp = await cli.post("/", json=example_body)
 
     data = await resp.json()
     assert resp.status == 200
@@ -56,7 +56,7 @@ async def test_two_month_with_31(cli, example_body):
 @pytest.mark.asyncio
 async def test_wrong_date_format(cli, example_body):
     example_body["date"] = "2000.1.1"
-    resp = await cli.get("/", json=example_body)
+    resp = await cli.post("/", json=example_body)
 
     data = await resp.json()
     assert resp.status == 400
@@ -66,7 +66,7 @@ async def test_wrong_date_format(cli, example_body):
 @pytest.mark.asyncio
 async def test_wrong_period(cli, example_body):
     example_body["periods"] = 2222222
-    resp = await cli.get("/", json=example_body)
+    resp = await cli.post("/", json=example_body)
 
     _ = await resp.json()
     assert resp.status == 400
